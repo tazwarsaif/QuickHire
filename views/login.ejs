@@ -4,81 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: sans-serif;
-      }
-      body {
-        background: linear-gradient(to bottom, #aeaea6a3, #b7dbff);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .login-container {
-        background-color: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        width: 350px;
-        text-align: center;
-      }
-      h2 {
-        margin-bottom: 20px;
-      }
-
-      .input-group {
-        margin-bottom: 15px;
-        text-align: left;
-      }
-
-      .input-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-
-      .input-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-
-      button {
-        width: 100%;
-        padding: 10px;
-        background-color: #2575fc;
-        border: none;
-        color: white;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-bottom: 15px;
-      }
-
-      button:hover {
-        background-color: #1b5dbf;
-      }
-
-      .register-link {
-        margin-top: 10px;
-      }
-
-      .register-link a {
-        color: #6a11cb;
-        text-decoration: none;
-      }
-
-      .register-link a:hover {
-        text-decoration: underline;
-      }
-    </style>
+    <link rel="stylesheet" href="login.css" />
   </head>
   <body>
     <!-- <form action="/login" method="POST">
@@ -88,6 +14,7 @@
     </form>
     Don't have an account?
     <a href="http://localhost:3000/signup">Sign up</a> -->
+    <%- include('partials/header') %>
     <div class="login-container">
       <form action="/login" method="POST">
         <div class="input-group">

@@ -1,8 +1,19 @@
 <header>
   <nav class="navbar">
-    <div class="brand-title">Ajob</div>
+    <div class="brand-title">QuickHire</div>
     <button class="toggle-button" id="toggleButton">☰</button>
     <div class="navbar-links" id="navbarLinks">
+      <% if(type === 'login'){ %>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="http://localhost:5000/signup">Sign Up</a></li>
+      </ul>
+      <% }else if(type === 'signup'){ %>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="http://localhost:5000/login">Log in</a></li>
+      </ul>
+      <% }else{ %>
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
@@ -18,6 +29,7 @@
           <button class="logout-button" id="logoutButton">Logout</button>
         </form>
       </div>
+      <% } %>
     </div>
   </nav>
 </header>
