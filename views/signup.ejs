@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <h2>Select a user first</h2>
+    <div class="button-container">
+      <button class="toggle-button" id="recruiterButton">Recruiter</button>
+      <button class="toggle-button" id="jobSeekerButton">Job Seeker</button>
+    </div>
+
+    <div class="form-container" id="recruiterFormContainer">
+      <form action="/recruiter" method="post" id="recruiter_signupForm">
+        <label for="username">Username:</label>
+        <input
+          type="username"
+          name="username"
+          placeholder="username"
+          id="username"
+        />
+        <span class="error" id="usernameError">Username is already taken!</span>
+        <label for="email">Email:</label>
+        <input required type="text" name="email" placeholder="email" />
+        <label for="name">Name:</label>
+        <input required type="text" name="name" placeholder="name" />
+        <label for="phone">Phone:</label>
+        <input required type="text" name="phone" placeholder="+880*******" />
+        <label for="password">Password:</label>
+        <input
+          required
+          type="password"
+          name="password"
+          placeholder="password"
+        />
+        <label for="organization">Organization:</label>
+        <input
+          required
+          type="text"
+          name="organization"
+          placeholder="organization"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="form-container" id="jobSeekerFormContainer">
+      <form action="/jobseeker" method="post" id="jobSeeker_signupForm">
+        <label for="username">Username:</label>
+        <input
+          type="username"
+          name="username"
+          placeholder="username"
+          id="username1"
+        />
+        <span class="error" id="usernameError1"
+          >Username is already taken!</span
+        >
+        <label for="email">Email:</label>
+        <input required type="text" name="email" placeholder="email" />
+        <label for="name">Name:</label>
+        <input required type="text" name="name" placeholder="name" />
+        <label for="phone">Phone:</label>
+        <input required type="text" name="phone" placeholder="+880*******" />
+        <label for="password">Password:</label>
+        <input
+          required
+          type="password"
+          name="password"
+          placeholder="password"
+        />
+        <label for="skills">Skill Set:</label>
+        <input
+          required
+          type="skills"
+          name="skills"
+          placeholder="nodejs,reactjs,frontend"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="login-link">
+      <hr />
+      <p>Have an account already?</p>
+      <a href="http://localhost:5000/login">Log in</a>
+    </div>
+    <hr />
+    <input
+      type="hidden"
+      value="<%= JSON.stringify(result) %>"
+      class="result"
+      id="result"
+    />
+    <script>
+      const result = document.querySelector(".result").value;
+      const usernames = JSON.parse(result)[0];
+      const usernameInput = document.getElementById("username");
+      const usernameError = document.getElementById("usernameError");
+      const usernameInput1 = document.getElementById("username1");
+      const usernameError1 = document.getElementById("usernameError1");
+      const signupForm_r = document.getElementById("recruiter_signupForm");
+      const signupForm_j = document.getElementById("jobSeeker_signupForm");
+      usernameInput.addEventListener("input", () => {
+        const input = usernameInput.value.trim();
+        console.log(2222);
+        if (usernames.includes(input)) {
+          usernameError.style.display = "inline";
+        } else {
+          usernameError.style.display = "none";
+        }
+      });
+      usernameInput1.addEventListener("input", () => {
+        const input = usernameInput1.value.trim();
+        console.log(2222);
+        if (usernames.includes(input)) {
+          usernameError1.style.display = "inline";
+        } else {
+          usernameError1.style.display = "none";
+        }
+      });
+      signupForm_r.addEventListener("submit", (e) => {
+        const input = usernameInput.value.trim();
+        for (let i = 0; i <= usernames.length; i++) {
+          if (usernames[i].username === input) {
+            e.preventDefault();
+            usernameError.style.display = "inline";
+            return;
+          }
+        }
+      });
+      signupForm_j.addEventListener("submit", (e) => {
+        const input = usernameInput1.value.trim();
+        for (let i = 0; i <= usernames.length; i++) {
+          if (usernames[i].username === input) {
+            e.preventDefault();
+            usernameError1.style.display = "inline";
+            return;
+          }
+        }
+      });
+    </script>
+    <script src="signupscript.js"></script>
+  </body>
+</html>
