@@ -3,9 +3,21 @@
     <div class="brand-title">QuickHire</div>
     <button class="toggle-button" id="toggleButton">☰</button>
     <div class="navbar-links" id="navbarLinks">
+      <ul>
+        <li><a href="http://localhost:5000/home">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+        <div class="actions">
+          <div class="search-bar">
+            <input type="text" placeholder="Search..." id="searchInput" />
+            <button class="search-button" id="searchButton">Search</button>
+          </div>
+        </div>
+        <button type="hidden" id="logoutButton" style="display: none"></button>
+      </ul>
       <% if(type === 'login'){ %>
       <ul>
-        <li><a href="#">Home</a></li>
         <li><a href="http://localhost:5000/signup">Sign Up</a></li>
       </ul>
       <% }else if(type === 'signup'){ %>
@@ -13,12 +25,22 @@
         <li><a href="#">Home</a></li>
         <li><a href="http://localhost:5000/login">Log in</a></li>
       </ul>
-      <% }else{ %>
+      <% }else if(type == 'Job Seeker'){ %>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">My Dashboard</a></li>
+      </ul>
+      <div class="actions">
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." id="searchInput" />
+          <button class="search-button" id="searchButton">Search</button>
+        </div>
+        <form action="/logout" method="post">
+          <button class="logout-button" id="logoutButton">Logout</button>
+        </form>
+      </div>
+      <% } else if(type == 'Recruiter'){%>
+      <ul>
+        <li><a href="#">My Dashboard</a></li>
       </ul>
       <div class="actions">
         <div class="search-bar">

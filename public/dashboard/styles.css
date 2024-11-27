@@ -1,0 +1,325 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to bottom, #aeaea6a3, #b7dbff);
+  background-attachment: fixed;
+  height: 100vh;
+}
+main {
+  margin-top: 4em;
+}
+
+.content {
+  padding: 60px 20px; /* Prevent content from hiding under fixed navbar */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.brand-title {
+  font-size: 1.5em;
+}
+
+.navbar-links {
+  margin-right: 4%;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.navbar-links li {
+  margin: 10px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+  color: #00bcd4;
+}
+
+.toggle-button {
+  display: none;
+  background-color: #444;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+/* Actions Section (Search Bar and Logout Button) */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.search-bar input:focus {
+  border-color: #00bcd4;
+}
+
+.search-button {
+  margin-left: 5px;
+  padding: 5px 10px;
+  background-color: #00bcd4;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #007c91;
+}
+
+.logout-button {
+  padding: 5px 15px;
+  background-color: #f44336;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #c62828;
+}
+
+.heading {
+  text-align: center;
+  padding-top: 35px;
+}
+
+.btns {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btns a {
+  font-size: 200%;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 6px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.509);
+  transition: 0.5s backgroud-color;
+}
+
+.btns a:hover {
+  background-color: #608ca5;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .toggle-button {
+    margin-right: 4%;
+    display: block;
+  }
+
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #333;
+    position: absolute;
+    top: 50px;
+    left: 0;
+  }
+
+  .navbar-links ul {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .navbar-links li {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .search-bar {
+    width: 80%;
+    flex-direction: column;
+  }
+
+  .search-bar input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .logout-button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+/* Habi Jabi code */
+
+.footer {
+  position: relative;
+  width: 94.5%;
+  background: #3586ff;
+  margin-top: 40%;
+  min-height: 100px;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.social-icon,
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.social-icon__item,
+.menu__item {
+  list-style: none;
+}
+
+.social-icon__link {
+  font-size: 2rem;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+}
+.social-icon__link:hover {
+  transform: translateY(-10px);
+}
+
+.menu__link {
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+  text-decoration: none;
+  opacity: 0.75;
+  font-weight: 300;
+}
+
+.menu__link:hover {
+  opacity: 1;
+}
+
+.footer p {
+  color: #fff;
+  margin: 15px 0 10px 0;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.wave {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("https://i.ibb.co/wQZVxxk/wave.png");
+  background-size: 1000px 100px;
+}
+
+.wave#wave1 {
+  z-index: 1000;
+  opacity: 1;
+  bottom: 0;
+  animation: animateWaves 4s linear infinite;
+}
+
+.wave#wave2 {
+  z-index: 999;
+  opacity: 0.5;
+  bottom: 10px;
+  animation: animate 4s linear infinite !important;
+}
+
+.wave#wave3 {
+  z-index: 1000;
+  opacity: 0.2;
+  bottom: 15px;
+  animation: animateWaves 3s linear infinite;
+}
+
+.wave#wave4 {
+  z-index: 999;
+  opacity: 0.7;
+  bottom: 20px;
+  animation: animate 3s linear infinite;
+}
+
+@keyframes animateWaves {
+  0% {
+    background-position-x: 1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position-x: -1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}

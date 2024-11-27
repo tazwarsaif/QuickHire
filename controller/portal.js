@@ -36,34 +36,16 @@ exports.login = async (req,res,next)=>{
     }
     console.log("Log in successful");
     req.session.user = { username , type: user[0][0].user_type};
-    res.redirect('dashboard')
+    if(user[0][0].user_type == 'Job Seeker'){
+        res.redirect('dashboard/jobseeker')
+    }else{
+        res.redirect("dashboard/recruiter")
+    }
 }
 
 exports.signup = async (req,res,next)=>{
     const result = await pool.query('Select username from user')
     res.render('signup', {result,type:'signup'});
-}
-
-exports.recDashboard = async (req,res,next)=>{
-    const {username,name, email, phone, password, organization} = req.body;
-    const hasedPass = await bcrypt.hash(password,10);
-    const res1 = await pool.query(`Insert into user (username,user_type,password) values (?,'Recruiter',?)`,[username,hasedPass]);
-    const temp = await pool.query(`Select id from user where username=?`,[username]);
-    const tempid = temp[0][0].id;
-    const res2 = await pool.query(`Insert into recruiter (rec_uid,name,phone,email,organization) values (?,?,?,?,?)`,[tempid,name,phone,email,organization]);
-    console.log('Signup Successful')
-    res.redirect('/');
-}
-
-exports.seekDashboard = async (req,res,next)=>{
-    const {username,name, email, phone, password, skillset} = req.body;
-    const hasedPass = await bcrypt.hash(password,10);
-    const res1 = await pool.query(`Insert into user (username,user_type,password) values (?,'Job Seeker',?)`,[username,hasedPass]);
-    const temp = await pool.query(`Select id from user where username=?`,[username]);
-    const tempid = temp[0][0].id;
-    const res2 = await pool.query(`Insert into jobseeker (seeker_uid,name,phone,email,skills) values (?,?,?,?,?)`,[tempid,name,phone,email,skillset]);
-    console.log('Signup Successful')
-    res.redirect('/');
 }
 
 exports.logout = (req,res,next)=>{
@@ -74,6 +56,10 @@ exports.logout = (req,res,next)=>{
         }else{
             console.log("Log out successful");
         }
-        res.redirect("/");
+        res.redirect("login");
     })
+}
+
+exports.homeView = (req,res,next) => {
+    res.render('homeview',{type:'Home'});
 }
