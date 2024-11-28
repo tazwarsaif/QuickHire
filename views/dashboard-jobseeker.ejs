@@ -9,7 +9,29 @@
   <body>
     <%- include('partials/header') %>
     <main>
-      <h1>Hello <%= type %></h1>
+      <div class="person">
+        <div class="persondetails">
+          <% seeker.forEach((person)=>{ %>
+          <p>Name: <%= person.name %></p>
+          <p>Phone: <%= person.phone %></p>
+          <p>Email: <%= person.email %></p>
+          <p>Skills: <%= person.skills %></p>
+          <% }) %>
+          <p><b>Type: <%= type %></b></p>
+          <div
+            class="details"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <a
+              href="http://localhost:5000/dashboard/jobseeker/edit"
+              class="details-btn detailed"
+              style="margin-top: 5px; width: 25%"
+              >Edit Profile</a
+            >
+          </div>
+        </div>
+      </div>
     </main>
+    <%- include('partials/footer') %>
   </body>
 </html>

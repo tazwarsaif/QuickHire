@@ -5,6 +5,10 @@ body {
   background: linear-gradient(to bottom, #aeaea6a3, #b7dbff);
   background-attachment: fixed;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
 }
 main {
   margin-top: 4em;
@@ -56,7 +60,7 @@ main {
 }
 
 .navbar-links a:hover {
-  color: #00bcd4;
+  color: #3586ff;
 }
 
 .toggle-button {
@@ -96,7 +100,7 @@ main {
 .search-button {
   margin-left: 5px;
   padding: 5px 10px;
-  background-color: #00bcd4;
+  background-color: #3586ff;
   border: none;
   color: white;
   border-radius: 4px;
@@ -209,9 +213,9 @@ main {
 
 .footer {
   position: relative;
-  width: 94.5%;
+  width: 94.7%;
   background: #3586ff;
-  margin-top: 40%;
+  margin-top: 15%;
   min-height: 100px;
   padding: 20px 50px;
   display: flex;
@@ -322,4 +326,110 @@ main {
   100% {
     background-positon-x: 0px;
   }
+}
+
+.jobs {
+  width: 50%;
+  border-top: 1px solid rgba(0, 0, 0, 0.468);
+  border-radius: 10px;
+  margin-left: 25%;
+  margin-top: 5%;
+}
+
+.job {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.466);
+  border-radius: 10px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  transition: 0.5s box-shadow;
+}
+
+.job:hover {
+  box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.428);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.632);
+  cursor: pointer;
+}
+
+.details-btn {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.231);
+  font-size: 20px;
+  margin-top: 10%;
+  border: 0.5px solid rgba(0, 0, 0, 0.103);
+  box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.347);
+  background-color: rgb(255, 255, 255);
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
+.apply {
+  background-color: rgb(173, 230, 184);
+  transition: 0.3s background-color;
+}
+
+.detailed {
+  background-color: #87bdea;
+  transition: 0.3s background-color;
+}
+
+.details-btn:hover {
+  color: rgb(255, 255, 255);
+}
+
+.apply:hover {
+  background-color: rgb(117, 175, 129);
+}
+
+.detailed:hover {
+  background-color: #56acbd;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.person {
+  width: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.165);
+  border-radius: 10px;
+  margin-left: 25%;
+  margin-top: 5%;
+}
+
+.persondetails {
+  border-radius: 10px;
+  box-shadow: 5px 4px 9px rgba(0, 0, 0, 0.234);
+  font-size: 30px;
+  padding: 30px;
+}
+
+.personedit {
+  width: 50%;
+  border-radius: 10px;
+  margin-left: 25%;
+  margin-top: 5%;
+}
+.personedit form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.personedit form input {
+  font-size: 30px;
+  padding: 12px;
+  padding-left: 30px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.403);
+  box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.333);
+}
+.personedit form label {
+  font-size: 30px;
+  padding: 7px;
 }

@@ -8,13 +8,6 @@
         <li><a href="#">About</a></li>
         <li><a href="#">Services</a></li>
         <li><a href="#">Contact</a></li>
-        <div class="actions">
-          <div class="search-bar">
-            <input type="text" placeholder="Search..." id="searchInput" />
-            <button class="search-button" id="searchButton">Search</button>
-          </div>
-        </div>
-        <button type="hidden" id="logoutButton" style="display: none"></button>
       </ul>
       <% if(type === 'login'){ %>
       <ul>
@@ -22,7 +15,6 @@
       </ul>
       <% }else if(type === 'signup'){ %>
       <ul>
-        <li><a href="#">Home</a></li>
         <li><a href="http://localhost:5000/login">Log in</a></li>
       </ul>
       <% }else if(type == 'Job Seeker'){ %>
@@ -51,6 +43,14 @@
           <button class="logout-button" id="logoutButton">Logout</button>
         </form>
       </div>
+      <% }else{ %>
+      <div class="actions">
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." id="searchInput" />
+          <button class="search-button" id="searchButton">Search</button>
+        </div>
+      </div>
+      <button type="hidden" id="logoutButton" style="display: none"></button>
       <% } %>
     </div>
   </nav>

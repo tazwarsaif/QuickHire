@@ -4,7 +4,7 @@ const pool = require('../util/database');
 
 
 exports.homePortal = (req,res,next)=>{
-    res.redirect('dashboard')
+    res.redirect('home')
 }
 
 exports.dashboard = (req,res,next)=>{
@@ -60,6 +60,15 @@ exports.logout = (req,res,next)=>{
     })
 }
 
-exports.homeView = (req,res,next) => {
-    res.render('homeview',{type:'Home'});
+exports.homeView = async (req,res,next) => {
+    const temp = await pool.query(`Select * from jobpost`);
+    const jobs = temp[0]
+    if(req.query.job_id){
+        const temp1 = await pool.query('Select * from jobpost where pid=?',[req.query.job_id]);
+        const thejob = temp1[0][0]
+        console.log(thejob)
+        res.render('jobview',{type:'Job View',thejob});
+        return
+    }
+    res.render('homeview',{type:'Home',jobs});
 }

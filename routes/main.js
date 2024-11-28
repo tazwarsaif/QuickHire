@@ -38,5 +38,6 @@ router.get('/dashboard/recruiter',recruiterController.recView)
 
 router.post('/jobseeker',jobseekerController.seekDashboard)
 router.get('/dashboard/jobseeker',jobseekerController.seekView)
+router.get('/dashboard/jobseeker/edit',jobseekerController.seekeditView)
 
 module.exports = router;

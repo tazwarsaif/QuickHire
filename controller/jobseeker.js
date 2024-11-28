@@ -12,6 +12,20 @@ exports.seekDashboard = async (req,res,next)=>{
     res.render('dashboard-recruiter', {type:req.session.user.type});
 }
 
-exports.seekView = (req,res,next) => {
-    res.render('dashboard-jobseeker', {type:req.session.user.type});
+exports.seekView = async (req,res,next) => {
+    const username = req.session.user.username;
+    const temp = await pool.query(`Select id from user where username=?`,[username]);
+    const jid = temp[0][0].id
+    const temp1 = await pool.query('Select * from jobseeker where seeker_uid=?',[jid]);
+    const seeker = [temp1[0][0]];
+    res.render('dashboard-jobseeker', {type:req.session.user.type,seeker});
+}
+
+exports.seekeditView = async (req,res,next) => {
+    const username = req.session.user.username;
+    const temp = await pool.query(`Select id from user where username=?`,[username]);
+    const jid = temp[0][0].id
+    const temp1 = await pool.query('Select * from jobseeker where seeker_uid=?',[jid]);
+    const seeker = [temp1[0][0]];
+    res.render('jobseekedit',{type:'Edit Seeker',seeker,seeker_uid:jid})
 }

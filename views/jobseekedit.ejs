@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <%- include('partials/public') %>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main>
+      <div class="personedit">
+        <form
+          action="/dashboard/jobseeker/edit?jid=<%= seeker_uid %>"
+          method="POST"
+        >
+          <% seeker.forEach((person)=>{ %>
+          <label for="name">Name: </label>
+          <input type="text" value="<%= person.name %>" />
+          <label for="phone">Phone: </label>
+          <input type="text" value="<%= person.phone %>" />
+          <label for="email">Email: </label>
+          <input type="text" value="<%= person.email %>" />
+          <label for="skills">Skills: </label>
+          <input type="text" value="<%= person.skills %>" />
+          <button type="submit">Submit</button>
+          <% }) %>
+        </form>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
+</html>
