@@ -29,3 +29,9 @@ exports.seekeditView = async (req,res,next) => {
     const seeker = [temp1[0][0]];
     res.render('jobseekedit',{type:'Edit Seeker',seeker,seeker_uid:jid})
 }
+
+exports.seekeditPost = async (req,res,next) => {
+    const {name,phone,email,skills} = req.body;
+    const res1 = await pool.query("UPDATE jobseeker SET name = ?, phone = ?, email =?, skills=? WHERE seeker_uid=?",[name,phone,email,skills,req.query.jid])
+    res.redirect("/dashboard/jobseeker")
+}

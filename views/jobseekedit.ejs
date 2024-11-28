@@ -16,14 +16,20 @@
         >
           <% seeker.forEach((person)=>{ %>
           <label for="name">Name: </label>
-          <input type="text" value="<%= person.name %>" />
+          <input type="text" value="<%= person.name %>" name="name" />
           <label for="phone">Phone: </label>
-          <input type="text" value="<%= person.phone %>" />
+          <input type="text" value="<%= person.phone %>" name="phone" />
           <label for="email">Email: </label>
-          <input type="text" value="<%= person.email %>" />
+          <input type="text" value="<%= person.email %>" name="email" />
           <label for="skills">Skills: </label>
-          <input type="text" value="<%= person.skills %>" />
-          <button type="submit">Submit</button>
+          <input type="text" value="<%= person.skills %>" name="skills" />
+          <button
+            type="submit"
+            class="details-btn apply"
+            style="margin-top: 10px; margin-bottom: -10px; cursor: pointer"
+          >
+            Submit
+          </button>
           <% }) %>
         </form>
       </div>
