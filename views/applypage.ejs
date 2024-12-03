@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply Page</title>
+    <%- include('partials/public') %>
+    <style>
+      * {
+        font-family: sans-serif;
+      }
+      main {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      main form {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+      .smallcontainer {
+        margin-top: -30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        font-size: 30px;
+      }
+      .smallcontainer label {
+        font-weight: 600;
+      }
+      .smallcontainer input {
+        margin-top: 30px;
+        font-size: 30px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main>
+      <form
+        action="/apply"
+        method="POST"
+        enctype="multipart/form-data"
+        id="applyform"
+      >
+        <div class="smallcontainer">
+          <label for="jobtitle">Job Title:</label>
+          <p><%= job[0].title %></p>
+        </div>
+        <div class="smallcontainer">
+          <label for="type">Job Type:</label>
+          <p><%= job[0].type %></p>
+        </div>
+        <div class="smallcontainer">
+          <label for="skills">Job Skills:</label>
+          <p><%= job[0].skills %></p>
+        </div>
+        <div class="smallcontainer">
+          <label for="uploadresume" style="margin-top: 25px">Resume:</label>
+          <input
+            type="file"
+            required
+            name="uploadresume"
+            accept="application/pdf"
+            id="fileinput"
+          />
+        </div>
+        <input type="number" hidden value="<%= job[0].pid %>" name="job_id" />
+        <input
+          type="number"
+          hidden
+          value="<%= seeker_id[0].id %>"
+          name="seeker_id"
+        />
+        <div class="details" style="margin-left: 35%; margin-top: 20px">
+          <form action="/home/apply?job_id=<%= job[0].pid %>">
+            <button
+              type="submit"
+              class="details-btn apply"
+              style="width: 100px; cursor: pointer"
+            >
+              Apply
+            </button>
+          </form>
+        </div>
+      </form>
+    </main>
+
+    <%- include('partials/footer') %>
+    <script>
+      const fileinput = document.getElementById("fileinput");
+      const applyform = document.getElementById("applyform");
+      applyform.addEventListener("submit", (event) => {
+        if (
+          fileinput.files[0].type != `application/pdf` ||
+          !fileinput.files[0]
+        ) {
+          alert("Please upload a PDF formate file");
+          event.preventDefault();
+        }
+      });
+    </script>
+  </body>
+</html>

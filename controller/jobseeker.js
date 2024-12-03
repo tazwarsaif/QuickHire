@@ -1,5 +1,8 @@
 const bcrypt = require('bcrypt');
 const pool = require('../util/database');
+const multer = require('multer')
+
+
 
 exports.seekDashboard = async (req,res,next)=>{
     const {username,name, email, phone, password, skillset} = req.body;
@@ -9,7 +12,7 @@ exports.seekDashboard = async (req,res,next)=>{
     const tempid = temp[0][0].id;
     const res2 = await pool.query(`Insert into jobseeker (seeker_uid,name,phone,email,skills) values (?,?,?,?,?)`,[tempid,name,phone,email,skillset]);
     console.log('Signup Successful')
-    res.render('dashboard-recruiter', {type:req.session.user.type});
+    res.render('dashboard-jobseeker', {type:req.session.user.type});
 }
 
 exports.seekView = async (req,res,next) => {
@@ -34,4 +37,19 @@ exports.seekeditPost = async (req,res,next) => {
     const {name,phone,email,skills} = req.body;
     const res1 = await pool.query("UPDATE jobseeker SET name = ?, phone = ?, email =?, skills=? WHERE seeker_uid=?",[name,phone,email,skills,req.query.jid])
     res.redirect("/dashboard/jobseeker")
+}
+
+exports.seekApply = async (req,res,next) =>{
+    const jid = req.query.job_id;
+    if(!jid){
+        return res.redirect('/home');
+    }
+    const temp = await pool.query("Select id from user where username=?",[req.session.user.username]);
+    const jobsearch = await pool.query("select * from jobpost where pid=?",[jid])
+    res.render('applypage',{type:'Apply page',job:jobsearch[0],seeker_id:temp[0]})
+}
+
+exports.seekApplied = async (req,res,next) =>{
+    console.log(req.body);
+    res.redirect("/home");
 }

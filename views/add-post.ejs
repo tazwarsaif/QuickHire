@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Jobs</title>
+    <style>
+      .heading {
+        margin-bottom: -50px;
+      }
+      .smallcontainer input {
+        width: 95%;
+      }
+      .smallcontainer textarea {
+        width: 100%;
+        height: 150px;
+        font-size: 25px;
+        font-family: sans-serif;
+        padding: 5px;
+      }
+    </style>
+    <%- include('./partials/public') %>
+  </head>
+  <body>
+    <%- include('./partials/header') %>
+    <main>
+      <div class="heading">
+        <h1>Add Circular:</h1>
+      </div>
+
+      <div class="personedit">
+        <form action="/recruiter/addjobs" method="POST">
+          <div class="smallcontainer">
+            <label for="name"><b>Title: </b></label>
+            <input type="text" name="title" />
+          </div>
+          <div class="smallcontainer">
+            <label for="type"><b>Type: </b></label>
+            <input type="text" name="type" />
+          </div>
+          <div class="smallcontainer">
+            <label for="phone"><b>Skills: </b></label>
+            <input type="text" name="skills" />
+          </div>
+          <div class="smallcontainer">
+            <label for="email"><b>Description: </b></label>
+            <textarea name="description"></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="details-btn apply"
+            style="margin-top: 10px; margin-bottom: -10px; cursor: pointer"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
+</html>

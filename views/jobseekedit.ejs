@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <%- include('partials/public') %>
+    <style>
+      .smallcontainer {
+        display: flex;
+      }
+      .smallcontainer input {
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <%- include('partials/header') %>
@@ -15,14 +23,23 @@
           method="POST"
         >
           <% seeker.forEach((person)=>{ %>
-          <label for="name">Name: </label>
-          <input type="text" value="<%= person.name %>" name="name" />
-          <label for="phone">Phone: </label>
-          <input type="text" value="<%= person.phone %>" name="phone" />
-          <label for="email">Email: </label>
-          <input type="text" value="<%= person.email %>" name="email" />
-          <label for="skills">Skills: </label>
-          <input type="text" value="<%= person.skills %>" name="skills" />
+          <div class="smallcontainer">
+            <label for="name"><b>Name: </b></label>
+            <input type="text" value="<%= person.name %>" name="name" />
+          </div>
+          <div class="smallcontainer">
+            <label for="phone"><b>Phone: </b></label>
+            <input type="text" value="<%= person.phone %>" name="phone" />
+          </div>
+          <div class="smallcontainer">
+            <label for="email"><b>Email: </b></label>
+            <input type="text" value="<%= person.email %>" name="email" />
+          </div>
+          <div class="smallcontainer">
+            <label for="skills"><b>Skills: </b></label>
+            <input type="text" value="<%= person.skills %>" name="skills" />
+          </div>
+
           <button
             type="submit"
             class="details-btn apply"

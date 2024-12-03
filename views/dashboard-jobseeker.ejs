@@ -12,12 +12,12 @@
       <div class="person">
         <div class="persondetails">
           <% seeker.forEach((person)=>{ %>
-          <p>Name: <%= person.name %></p>
-          <p>Phone: <%= person.phone %></p>
-          <p>Email: <%= person.email %></p>
-          <p>Skills: <%= person.skills %></p>
+          <p><b>Name: </b><%= person.name %></p>
+          <p><b>Phone: </b><%= person.phone %></p>
+          <p><b>Email: </b><%= person.email %></p>
+          <p><b>Skills: </b><%= person.skills %></p>
           <% }) %>
-          <p><b>Type: <%= type %></b></p>
+          <p style="color: rgb(218, 46, 46)"><b>Type: <%= type %></b></p>
           <div
             class="details"
             style="display: flex; justify-content: center; align-items: center"

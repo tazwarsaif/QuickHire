@@ -369,6 +369,7 @@ main {
 .apply {
   background-color: rgb(173, 230, 184);
   transition: 0.3s background-color;
+  cursor: pointer;
 }
 
 .detailed {
@@ -400,12 +401,13 @@ main {
   border-radius: 10px;
   margin-left: 25%;
   margin-top: 5%;
+  background-color: white;
 }
 
 .persondetails {
   border-radius: 10px;
   box-shadow: 5px 4px 9px rgba(0, 0, 0, 0.234);
-  font-size: 30px;
+  font-size: 20px;
   padding: 30px;
 }
 
@@ -414,15 +416,17 @@ main {
   border-radius: 10px;
   margin-left: 25%;
   margin-top: 5%;
+  background-color: white;
 }
 .personedit form {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  padding: 30px;
 }
 
 .personedit form input {
-  font-size: 30px;
+  font-size: 20px;
   padding: 12px;
   padding-left: 30px;
   background: transparent;
@@ -430,6 +434,14 @@ main {
   box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.333);
 }
 .personedit form label {
-  font-size: 30px;
+  font-size: 20px;
   padding: 7px;
+}
+
+.homedash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
 }

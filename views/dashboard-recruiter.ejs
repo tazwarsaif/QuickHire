@@ -4,12 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <%- include('./partials/public') %>
+    <%- include('partials/public') %>
   </head>
   <body>
-    <%- include('./partials/header') %>
+    <%- include('partials/header') %>
     <main>
-      <h1>Hello Bye <%= type %></h1>
+      <div class="person">
+        <div class="persondetails">
+          <% recruiter.forEach((person)=>{ %>
+          <p><b>Name: </b><%= person.name %></p>
+          <p><b>Phone: </b><%= person.phone %></p>
+          <p><b>Email: </b><%= person.email %></p>
+          <p><b>Organization: </b><%= person.organization %></p>
+          <% }) %>
+          <p style="color: rgb(218, 46, 46)"><b>Type: <%= type %></b></p>
+          <div
+            class="details"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <a
+              href="http://localhost:5000/dashboard/recruiter/edit"
+              class="details-btn detailed"
+              style="margin-top: 5px; width: 25%"
+              >Edit Profile</a
+            >
+          </div>
+        </div>
+      </div>
     </main>
     <%- include('partials/footer') %>
   </body>

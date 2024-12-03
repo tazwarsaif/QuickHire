@@ -5,10 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <%- include('partials/public') %>
+    <style>
+      .homedash button {
+        font-size: 25px;
+        padding: 10px;
+        box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.421);
+        border-radius: 5px;
+      }
+      .homedash a {
+        font-size: 25px;
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+        border: 1px solid rgba(0, 0, 0, 0.234);
+        box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.421);
+        padding: 10px;
+        background-color: rgb(108, 173, 238);
+        transition: 0.3s background-color;
+        border-radius: 5px;
+      }
+      .homedash a:hover {
+        background-color: rgb(90, 139, 189);
+      }
+    </style>
   </head>
   <body>
     <%- include('partials/header') %>
     <main>
+      <% if(!user){ %>
       <div class="heading">
         <h1>
           "Creating seamless opportunities for professionals to connect and
@@ -21,6 +44,25 @@
           <a href="http://localhost:5000/signup">Sign up</a>
         </div>
       </div>
+      <% }else{ %>
+      <div class="heading">
+        <h1>
+          <% user.forEach((element)=>{ %>
+          <p>
+            <%= element.name.split(" ")[0] %> you have applied for <%= applied
+            %> jobs.
+          </p>
+          <% }) %>
+        </h1>
+        <div class="homedash">
+          <a href="http://localhost:5000/dashboard/jobseeker">My Dashboard</a>
+          <form action="/logout" method="post">
+            <button class="logout-button" id="logoutButton">Logout</button>
+          </form>
+        </div>
+        <hr />
+      </div>
+      <% } %>
 
       <div class="jobs">
         <% jobs.forEach((job)=>{ %>
@@ -40,12 +82,32 @@
               class="details-btn detailed"
               >Details</a
             >
-            <a href="#" class="details-btn apply">Apply</a>
+            <% if(!user){ %>
+            <button
+              class="details-btn apply"
+              id="applynonuser"
+              class="nonuser"
+              onclick="alertuser()"
+            >
+              Apply
+            </button>
+            <% }else{ %>
+            <a
+              href="http://localhost:5000/home/apply?job_id=<%= job.pid %>"
+              class="details-btn apply"
+              >Apply</a
+            >
+            <% } %>
           </div>
         </div>
         <% }) %>
       </div>
     </main>
     <%- include('partials/footer') %>
+    <script>
+      function alertuser() {
+        alert("Please log in as a Job Seeker first!");
+      }
+    </script>
   </body>
 </html>

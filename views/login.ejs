@@ -44,5 +44,13 @@
         </p>
       </form>
     </div>
+    <%- include('partials/footer') %>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const myParam = Object.fromEntries(urlParams.entries());
+      if (myParam.msg) {
+        alert("please log in first!");
+      }
+    </script>
   </body>
 </html>

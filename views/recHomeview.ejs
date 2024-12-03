@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <%- include('partials/public') %>
+    <style>
+      .homedash button {
+        font-size: 25px;
+        padding: 10px;
+        box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.421);
+        border-radius: 5px;
+      }
+      .homedash a {
+        font-size: 25px;
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+        border: 1px solid rgba(0, 0, 0, 0.234);
+        box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.421);
+        padding: 10px;
+        background-color: rgb(108, 173, 238);
+        transition: 0.3s background-color;
+        border-radius: 5px;
+      }
+      .homedash a:hover {
+        background-color: rgb(90, 139, 189);
+      }
+      .homedash {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .upper {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .btns {
+        display: flex;
+      }
+      .jobs {
+        margin-right: 22%;
+      }
+      .detailed {
+        cursor: pointer;
+        color: white;
+      }
+      .heading {
+        font-size: 30px;
+      }
+      #myjobs {
+        background-color: rgb(109, 130, 201);
+        transition: 0.3s background-color;
+      }
+      #myjobs:hover {
+        background-color: rgb(91, 93, 162);
+      }
+      .apply {
+        color: rgb(0, 0, 0);
+      }
+      #addjobs {
+        background-color: rgb(142, 203, 156);
+        transition: 0.3s background-color;
+      }
+      #addjobs:hover {
+        background-color: rgb(136, 157, 104);
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main>
+      <div class="allmainparts">
+        <div class="homedash">
+          <div class="upper">
+            <div class="heading">
+              Hello, Recruiter <b><%= recruiter[0].name.split(" ")[0] %>.</b>
+            </div>
+            <div class="btns">
+              <a href="http://localhost:5000/recruiter/addjobs" id="addjobs"
+                ><b>+ </b>Add New Circular</a
+              >
+              <a href="http://localhost:5000/dashboard/recruiter"
+                >My Dashboard</a
+              >
+              <a href="http://localhost:5000/recruiter/postedjobs" id="myjobs"
+                >My Posted Jobs</a
+              >
+              <form action="/logout" method="post">
+                <button class="logout-button" id="logoutButton">Logout</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="jobs">
+            <% jobs.forEach((job)=>{ %>
+            <div class="job">
+              <div class="jobpart">
+                <div class="job-heading">
+                  <h2><%= job.title %></h2>
+                </div>
+                <div class="job-type">
+                  <h3 class="job-type"><%= job.type %></h3>
+                </div>
+                <div class="skills"><%= job.skills %></div>
+              </div>
+              <div class="details">
+                <button class="details-btn detailed" onclick="alertuser()">
+                  Details
+                </button>
+                <button
+                  class="details-btn apply"
+                  id="applynonuser"
+                  class="nonuser"
+                  onclick="alertuser()"
+                >
+                  Apply
+                </button>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+    <script>
+      function alertuser() {
+        alert("Please log in as a Job Seeker first!");
+      }
+    </script>
+  </body>
+</html>
