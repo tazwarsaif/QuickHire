@@ -9,7 +9,7 @@ exports.recDashboard = async (req,res,next)=>{
     const tempid = temp[0][0].id;
     const res2 = await pool.query(`Insert into recruiter (rec_uid,name,phone,email,organization) values (?,?,?,?,?)`,[tempid,name,phone,email,organization]);
     console.log('Signup Successful')
-    res.redirect('dashboard/recruiter')
+    res.redirect('/login')
 }
 
 exports.recView = async (req,res,next) => {

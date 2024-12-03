@@ -64,7 +64,7 @@ router.post('/recruiter/deletejob',recruiterController.DeletePostedJobs)
 
 //For Job Seeker
 
-router.post('/jobseeker',authMiddleware,jobseekerController.seekDashboard)
+router.post('/jobseeker',jobseekerController.seekDashboard)
 router.get('/dashboard/jobseeker',authMiddleware,jobseekerController.seekView)
 router.get('/dashboard/jobseeker/edit',authMiddleware,jobseekerController.seekeditView)
 router.post('/dashboard/jobseeker/edit',authMiddleware,jobseekerController.seekeditPost)
