@@ -18,6 +18,7 @@ exports.recView = async (req,res,next) => {
     const rid = temp[0][0].id
     const temp1 = await pool.query('Select * from recruiter where rec_uid=?',[rid]);
     const recruiter = [temp1[0][0]];
+    
     res.render('dashboard-recruiter', {type:req.session.user.type,recruiter});
 }
 
@@ -37,6 +38,7 @@ exports.receditPost = async (req,res,next) => {
 }
 
 exports.addJobPostView = (req,res,next) => {
+    
     res.render('add-post',{type:'Add Job Post'})
 }
 exports.addJobPost = async (req,res,next) => {
@@ -53,7 +55,8 @@ exports.myPostedJobs = async (req,res,next) => {
     const temp = await pool.query(`Select id from user where username=?`,[username]);
     const rid = temp[0][0].id
     const temp1 = await pool.query('Select * from jobpost where recruiter_id=?',[rid]);
-    res.render('recPostedJobs', {type: 'Posted Job',jobs:temp1[0]});
+    const temp2 = await pool.query("SELECT jp.pid AS job_post_id, COUNT(at.seeker_id) AS number_of_applicants, COUNT(CASE WHEN at.status = 'pending' THEN 1 END) AS Pending, COUNT(CASE WHEN at.status = 'accepted' THEN 1 END) AS Accepted, COUNT(CASE WHEN at.status = 'rejected' THEN 1 END) AS Rejected FROM jobPost jp LEFT JOIN applicationTracking at ON jp.pid = at.job_id GROUP BY jp.pid");
+    res.render('recPostedJobs', {type: 'Posted Job',jobs:temp1[0],applicantstatus: temp2[0]});
 }
 
 exports.editJobPost = async (req,res,next) => {
@@ -78,4 +81,12 @@ exports.DeletePostedJobs = async (req,res,next) => {
     const id = req.body.pid;
     const res1 = await pool.query("Delete from jobpost where pid=?",[id]);
     res.redirect('/recruiter/postedjobs')
+}
+
+exports.DetailedJobView = async (req,res,next)=>{
+    const job_id = req.query.job_id;
+    const temp = await pool.query('Select * from applicationtracking where job_id=?',[job_id]);
+    const temp1 = await pool.query('Select * from jobpost where pid=?',[job_id]);
+    console.log(temp1)
+    res.render('recJobDetailedView',{type:'Detailed View',job:temp1[0]})
 }

@@ -57,33 +57,53 @@
   <body>
     <%- include('./partials/header') %>
     <main>
-      <% jobs.forEach((job)=>{ %>
+      <% for(let i = 0; i<=jobs.length; i++){ if(i==jobs.length){break}%>
       <div class="job">
         <div class="jobpart">
           <div class="job-heading">
-            <h2><%= job.title %></h2>
+            <h2>
+              <%= jobs[i].title %>
+              <b style="color: #6a6c62">
+                [Number of Applicants: <%=
+                applicantstatus[i].number_of_applicants %>,
+                <b style="color: rgb(53, 99, 144)"
+                  >Pending:<%= applicantstatus[i].Pending %></b
+                >,
+                <b style="color: rgb(86, 124, 65)"
+                  >Aceepted: <%= applicantstatus[i].Accepted %></b
+                >,
+                <b style="color: rgb(197, 79, 79)"
+                  >Rejected: <%= applicantstatus[i].Rejected %></b
+                >]</b
+              >
+            </h2>
           </div>
           <div class="job-type">
-            <h3 class="job-type"><%= job.type %></h3>
+            <h3 class="job-type"><%= jobs[i].type %></h3>
           </div>
-          <div class="skills"><%= job.skills %></div>
+          <div class="skills"><%= jobs[i].skills %></div>
         </div>
         <div class="details">
           <a
-            href="http://localhost:5000/recruiter/editjob?job_id=<%= job.pid %>"
+            href="http://localhost:5000/recruiter/detailedjobview?job_id=<%= jobs[i].pid %>"
+            class="details-btn apply"
+            >Detailed View</a
+          >
+          <a
+            href="http://localhost:5000/recruiter/editjob?job_id=<%= jobs[i].pid %>"
             class="details-btn detailed"
-            >View</a
+            >Edit Circular</a
           >
           <button
             class="delete-btn details-btn apply"
-            data-pid="<%= job.pid %>"
-            onclick="openDeleteModal('<%= job.pid %>')"
+            data-pid="<%= jobs[i].pid %>"
+            onclick="openDeleteModal('<%= jobs[i].pid %>')"
           >
             Delete
           </button>
         </div>
       </div>
-      <% }) %>
+      <% } %>
     </main>
 
     <!-- Modal -->

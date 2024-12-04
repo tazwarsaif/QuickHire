@@ -61,6 +61,7 @@ router.get('/recruiter/editjob',recruiterController.editJobPost)
 router.post('/recruiter/editjob',recruiterController.editJobPostPost)
 router.get('/recruiter/postedjobs',recruiterController.myPostedJobs)
 router.post('/recruiter/deletejob',recruiterController.DeletePostedJobs)
+router.get('/recruiter/detailedjobview',recruiterController.DetailedJobView)
 
 //For Job Seeker
 
