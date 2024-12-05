@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Session View</title>
+    <%- include('partials/public') %>
+    <style>
+      /* Content for background */
+      #mainContent {
+        padding: 20px;
+        text-align: center;
+      }
+
+      /* Open button to trigger form */
+      .open-button {
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 26px;
+        border-radius: 8px;
+      }
+
+      /* The popup form - hidden by default */
+      .form-popup {
+        display: none;
+        /* position: fixed; */
+        top: 40%;
+        margin-left: 40%;
+        /* transform: translate(-50%, -50%); */
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        width: 20%;
+      }
+
+      /* Full-width input fields */
+      .form-popup input {
+        width: 94%;
+        font-size: 20px;
+        margin: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: #f1f1f1;
+      }
+
+      /* Buttons */
+      .form-popup .btn {
+        background-color: #04aa6d;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      .form-popup .cancel {
+        background-color: red;
+      }
+
+      /* Add some hover effects to buttons */
+      .form-popup .btn:hover {
+        opacity: 0.9;
+      }
+
+      /* Background blur effect */
+      .blur {
+        filter: blur(5px);
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main id="mainContent">
+      <div>
+        <button class="open-button" onclick="openForm()">+ Add Session</button>
+      </div>
+      <!-- The Pop-Up Form -->
+    </main>
+    <div class="form-popup" id="popupForm">
+      <form action="/submit" method="post">
+        <h2>Create Interview Session</h2>
+        <label for="title"><b>Title</b></label>
+        <input
+          type="text"
+          placeholder="type a name for the session.."
+          name="title"
+          required
+        />
+
+        <label for="sdate"><b>Start date:</b></label>
+        <input
+          type="date"
+          placeholder="Enter Start Date"
+          name="sdate"
+          required
+        />
+        <label for="edate"><b>End date:</b></label>
+        <input type="date" placeholder="Enter End Date" name="edate" required />
+        <label for="start"><b>Start Time:</b></label>
+        <input
+          type="time"
+          placeholder="Enter Start Time"
+          name="stime"
+          required
+        />
+        <label for="end"><b>End Time:</b></label>
+        <input type="time" placeholder="Enter End Time" name="stime" required />
+
+        <button type="submit" class="btn">Login</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">
+          Close
+        </button>
+      </form>
+    </div>
+
+    <%- include('partials/footer') %>
+    <script>
+      function openForm() {
+        document.getElementById("popupForm").style.display = "block";
+        document.getElementById("mainContent").classList.add("blur");
+        document.querySelector(".open-button").style.display = "none";
+      }
+
+      function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+        document.querySelector(".open-button").style.display = "block";
+        document.getElementById("mainContent").classList.remove("blur");
+      }
+    </script>
+  </body>
+</html>

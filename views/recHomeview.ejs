@@ -56,6 +56,13 @@
       #myjobs:hover {
         background-color: rgb(91, 93, 162);
       }
+      #interviewsession {
+        background-color: rgb(153, 109, 201);
+        transition: 0.3s background-color;
+      }
+      #interviewsession:hover {
+        background-color: rgb(96, 62, 111);
+      }
       .apply {
         color: rgb(0, 0, 0);
       }
@@ -86,6 +93,11 @@
               >
               <a href="http://localhost:5000/recruiter/postedjobs" id="myjobs"
                 >My Posted Jobs</a
+              >
+              <a
+                href="http://localhost:5000/recruiter/interviewsession"
+                id="interviewsession"
+                >Interview Sessions</a
               >
               <form action="/logout" method="post">
                 <button class="logout-button" id="logoutButton">Logout</button>

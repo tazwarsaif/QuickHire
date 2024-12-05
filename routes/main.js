@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 async function applyStore (req,res,next) {
-    const filename = `file:///F:/Task/QuickHire/resume/${req.file.filename}`
+    const filename = `${req.file.filename}`
     const insertingapplication = pool.query("INSERT INTO applicationtracking (job_id, seeker_id, path_link) VALUES (?,?,?)",[req.body.job_id,req.body.seeker_id,filename])
     next();
 }
@@ -60,6 +60,7 @@ router.post('/recruiter/addjobs',recruiterController.addJobPost)
 router.get('/recruiter/editjob',recruiterController.editJobPost)
 router.post('/recruiter/editjob',recruiterController.editJobPostPost)
 router.get('/recruiter/postedjobs',recruiterController.myPostedJobs)
+router.get('/recruiter/interviewsession',recruiterController.InterviewSessionView)
 router.post('/recruiter/deletejob',recruiterController.DeletePostedJobs)
 router.get('/recruiter/detailedjobview',recruiterController.DetailedJobView)
 

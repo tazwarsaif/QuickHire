@@ -76,7 +76,10 @@ exports.homeView = async (req,res,next) => {
             const temp3 = await pool.query('select * from jobseeker where seeker_uid=?',[seek_id])
             const user = temp3[0]
             const temp2 = await pool.query('select count(application_id) as count , seeker_id from applicationtracking where seeker_id = ? group by seeker_id',[seek_id])
-            const applied = temp2[0][0].count;
+            let applied = 0
+            if(temp2[0].length>0){
+                applied = temp2[0][0].count;
+            }
             return res.render('homeview',{type:'Home',jobs,applied,user});
         }else{
             const forrec = await pool.query('select id from user where username=?',[req.session.user.username])

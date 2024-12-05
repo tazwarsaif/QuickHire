@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job View</title>
     <%- include('partials/public') %>
+    <style>
+      table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        background: linear-gradient(to bottom, #abcadea5, #ddf5f9);
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <%- include('partials/header') %>
@@ -14,13 +32,42 @@
         <h2>Type: <%= job[0].type %></h2>
         <p>Skills: <%= job[0].skills %></p>
         <p>Description: <%= job[0].description %></p>
+
         <div class="details">
           <a
             href="http://localhost:5000/recruiter/postedjobs"
             class="details-btn detailed"
-            style="width: max-content; margin-top: 20px"
+            style="width: max-content; margin-top: 20px; margin-bottom: 40px"
             >Go Back to Jobs</a
           >
+        </div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Email</th>
+                <th>Resume Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% names.forEach((name)=>{ %>
+              <tr>
+                <td><%= name.name %></td>
+                <td><%= name.status %></td>
+                <td><%= name.email %></td>
+                <td>
+                  <a
+                    href="http://localhost:5000//<%= name.path_link %>"
+                    target="_blank"
+                    >Link</a
+                  >
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
         </div>
       </div>
     </main>

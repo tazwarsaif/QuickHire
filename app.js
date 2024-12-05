@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const path = require('path');
 const MuSqlStore = require('express-mysql-session')(session);
 const mainRouter = require('./routes/main');
 const pool = require('./util/database');
@@ -12,6 +13,7 @@ app.set('views','views');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'resume')));
 
 const sessionStore = new MuSqlStore({},pool);
 

@@ -87,6 +87,11 @@ exports.DetailedJobView = async (req,res,next)=>{
     const job_id = req.query.job_id;
     const temp = await pool.query('Select * from applicationtracking where job_id=?',[job_id]);
     const temp1 = await pool.query('Select * from jobpost where pid=?',[job_id]);
-    console.log(temp1)
-    res.render('recJobDetailedView',{type:'Detailed View',job:temp1[0]})
+    const temp2 = await pool.query('select at.application_id as application_id, js.name as name, at.status as status, at.path_link as path_link, js.email as email from applicationtracking at inner join jobseeker js on js.seeker_uid = at.seeker_id and at.job_id=?',[job_id]);
+    console.log(temp2[0])
+    res.render('recJobDetailedView',{type:'Detailed View',job:temp1[0],names:temp2[0]})
+}
+
+exports.InterviewSessionView = (req,res,next) => {
+    res.render('interviewSession',{type:'Interview Session'})
 }
