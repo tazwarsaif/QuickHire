@@ -87,11 +87,35 @@ exports.DetailedJobView = async (req,res,next)=>{
     const job_id = req.query.job_id;
     const temp = await pool.query('Select * from applicationtracking where job_id=?',[job_id]);
     const temp1 = await pool.query('Select * from jobpost where pid=?',[job_id]);
-    const temp2 = await pool.query('select at.application_id as application_id, js.name as name, at.status as status, at.path_link as path_link, js.email as email from applicationtracking at inner join jobseeker js on js.seeker_uid = at.seeker_id and at.job_id=?',[job_id]);
-    console.log(temp2[0])
-    res.render('recJobDetailedView',{type:'Detailed View',job:temp1[0],names:temp2[0]})
+    const temp2 = await pool.query('select at.application_id as application_id, js.name as name, at.status as status, at.path_link as path_link, js.email as email, at.interview_session as interview_session from applicationtracking at inner join jobseeker js on js.seeker_uid = at.seeker_id and at.job_id=?',[job_id]);
+    const username = req.session.user.username;
+    const temp3 = await pool.query(`Select id from user where username=?`,[username]);
+    const temp4 = await pool.query("Select interview_id from interview_session where rec_uid=?",[temp3[0][0].id])
+    res.render('recJobDetailedView',{type:'Detailed View',job:temp1[0],names:temp2[0],interviews:temp4[0]})
 }
 
-exports.InterviewSessionView = (req,res,next) => {
-    res.render('interviewSession',{type:'Interview Session'})
+exports.InterviewSessionView = async (req,res,next) => {
+    const res1 = await pool.query("select * from interview_session");
+    res.render('interviewSession',{type:'Interview Session',interviews:res1[0]});
+}
+exports.InterviewSessionViewPost = async (req,res,next) => {
+    const username = req.session.user.username;
+    const {title,date,stime,etime} = req.body;
+    const temp = await pool.query(`Select id from user where username=?`,[username]);
+    const rid = temp[0][0].id;
+    const res1 = await pool.query(`Insert into interview_session (rec_uid,title,date,start_time,end_time) values (?,?,?,?,?)`,[rid,title,date,stime,etime]);
+    res.redirect('/recruiter/interviewsession');
+}
+
+exports.selectinterview = async (req,res,next) => {
+    const app_id =  Number(req.query.app_id);
+    if(req.query.interviewselect === "null"){
+        const res1 = await pool.query("select * from applicationtracking where application_id=?",[app_id])
+        const res2 = await pool.query("UPDATE applicationtracking set interview_session=? where application_id=?",[null,app_id]);
+        return res.redirect(`http://localhost:5000/recruiter/detailedjobview?job_id=${res1[0][0].job_id}`)
+    }
+    const selectid = Number(req.query.interviewselect);
+    const res2 = await pool.query("UPDATE applicationtracking set interview_session=? where application_id=?",[selectid,app_id]);
+    const res1 = await pool.query("select * from applicationtracking where application_id=?",[app_id])
+    res.redirect(`http://localhost:5000/recruiter/detailedjobview?job_id=${res1[0][0].job_id}`)
 }

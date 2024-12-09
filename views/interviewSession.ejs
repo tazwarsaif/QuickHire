@@ -77,6 +77,22 @@
         filter: blur(5px);
         pointer-events: none;
       }
+      table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        background: linear-gradient(to bottom, #abcadea5, #ddf5f9);
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -88,7 +104,7 @@
       <!-- The Pop-Up Form -->
     </main>
     <div class="form-popup" id="popupForm">
-      <form action="/submit" method="post">
+      <form action="/recruiter/interviewsession" method="post">
         <h2>Create Interview Session</h2>
         <label for="title"><b>Title</b></label>
         <input
@@ -98,15 +114,13 @@
           required
         />
 
-        <label for="sdate"><b>Start date:</b></label>
+        <label for="date"><b>Date:</b></label>
         <input
           type="date"
-          placeholder="Enter Start Date"
-          name="sdate"
+          placeholder="Enter Interview Date"
+          name="date"
           required
         />
-        <label for="edate"><b>End date:</b></label>
-        <input type="date" placeholder="Enter End Date" name="edate" required />
         <label for="start"><b>Start Time:</b></label>
         <input
           type="time"
@@ -115,13 +129,40 @@
           required
         />
         <label for="end"><b>End Time:</b></label>
-        <input type="time" placeholder="Enter End Time" name="stime" required />
+        <input type="time" placeholder="Enter End Time" name="etime" required />
 
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn">Create Session</button>
         <button type="button" class="btn cancel" onclick="closeForm()">
           Close
         </button>
       </form>
+    </div>
+
+    <div class="interview_container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Session ID</th>
+            <th>Number of Interviewee</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% interviews.forEach((interview)=>{ %>
+          <tr>
+            <td><%= interview.title %></td>
+            <td><%= interview.date.toDateString() %></td>
+            <td><%= interview.start_time %></td>
+            <td><%= interview.end_time %></td>
+            <td>
+              <a href="#" target="_blank">Detailed view</a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </div>
 
     <%- include('partials/footer') %>

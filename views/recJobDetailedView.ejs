@@ -22,6 +22,11 @@
         background-color: #f4f4f4;
         font-weight: bold;
       }
+      select {
+        font-size: 17px;
+        width: 80%;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -49,6 +54,7 @@
                 <th>Status</th>
                 <th>Email</th>
                 <th>Resume Link</th>
+                <th>Interview Session</th>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +70,66 @@
                     >Link</a
                   >
                 </td>
+                <% if(name.interview_session===null){ %>
+                <input
+                  type="hidden"
+                  id="app_id"
+                  value="<%= name.application_id %>"
+                />
+                <td class="intform">
+                  <select
+                    id="interviewdetails"
+                    class="interviewdetails"
+                    name="interviewdetails"
+                  >
+                    <option
+                      value="notdefined_<%= name.application_id %>"
+                      selected
+                    >
+                      Not Defined
+                    </option>
+                    <% interviews.forEach((interview)=>{ %>
+                    <option
+                      value="<%= interview.interview_id %>_<%= name.application_id %>"
+                    >
+                      <%= interview.interview_id %>
+                    </option>
+                    <% }) %>
+                  </select>
+                </td>
+                <% }else{ %>
+                <input
+                  type="hidden"
+                  id="app_id"
+                  value="<%= name.application_id %>"
+                />
+                <td class="intform">
+                  <select
+                    id="interviewdetails"
+                    class="interviewdetails"
+                    name="interviewdetails"
+                  >
+                    <option value="notdefined_<%= name.application_id %>">
+                      Not Defined
+                    </option>
+                    <% interviews.forEach((interview)=>{ %> <%
+                    if(interview.interview_id == name.interview_session){ %>
+                    <option
+                      value="<%= interview.interview_id %>_<%= name.application_id %>"
+                      selected
+                    >
+                      <%= interview.interview_id %>
+                    </option>
+                    <% }else{ %>
+                    <option
+                      value="<%= interview.interview_id %>_<%= name.application_id %>"
+                    >
+                      <%= interview.interview_id %>
+                    </option>
+                    <% }}) %>
+                  </select>
+                </td>
+                <% } %>
               </tr>
               <% }) %>
             </tbody>
@@ -72,5 +138,29 @@
       </div>
     </main>
     <%- include('partials/footer') %>
+    <script>
+      const interviewselect = document.querySelectorAll(".interviewdetails");
+      const application_id = document.getElementById("app_id");
+      interviewselect.forEach((btn) => {
+        btn.addEventListener("change", () => {
+          const lis = btn.value.split("_");
+          const interid = lis[0];
+          const app_id = lis[1];
+          if (interid == "notdefined") {
+            fetch(
+              `http://localhost:5000/recruiter/changeinterviewsession?app_id=${app_id}&interviewselect=null`
+            )
+              .then((res) => console.log(res))
+              .catch((err) => console.log(err));
+          } else {
+            fetch(
+              `http://localhost:5000/recruiter/changeinterviewsession?app_id=${app_id}&interviewselect=${interid}`
+            )
+              .then((res) => console.log(res))
+              .catch((err) => console.log(err));
+          }
+        });
+      });
+    </script>
   </body>
 </html>
