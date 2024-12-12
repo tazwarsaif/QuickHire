@@ -1,5 +1,10 @@
 const bcrypt = require('bcrypt');
 const pool = require('../util/database');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+
+
 
 exports.recDashboard = async (req,res,next)=>{
     const {username,name, email, phone, password, organization} = req.body;
@@ -123,10 +128,75 @@ exports.InterviewDetailedView = async (req,res,next) => {
     const i_id = req.params.id;
     const temp2 = await pool.query('select at.application_id as application_id, js.name as name, at.status as status, at.path_link as path_link, js.email as email, at.interview_session as interview_session from applicationtracking at inner join jobseeker js on js.seeker_uid = at.seeker_id and at.interview_session=?',[i_id]);
     const temp3 = await pool.query('select * from interview_session where interview_id=?',[i_id]);
-    res.render('recruiter/interviewDetailedView',{type:'Interview Detailed View',interviewees: temp2[0],interview:temp3[0]})
+    res.render('recruiter/interviewDetailedView',{type:'Interview Detailed View',interviewees: temp2[0],interview:temp3[0],i_id})
+}
+
+exports.InterviewDetailsEdit = async (req,res,next) => {
+    const temp3 = await pool.query('select * from interview_session where interview_id=?',[req.query.interview_id]);
+    res.render('recruiter/interviewDetailsEdit',{details:temp3[0]});
+}
+
+exports.InterviewDetailsEditPost = async (req,res,next) => {
+    const {title,date,s_time,e_time} = req.body
+    const res1 = await pool.query("UPDATE interview_session SET title = ?, date=?, start_time=?, end_time=? where interview_id=?",[title,date,s_time,e_time,req.query.interview_id])
+    res.redirect(`/recruiter/interviewsession/${req.query.interview_id}`)
+}
+
+exports.ChangeInterviewStatus = async (req,res,next)=>{
+    const {app_id,interviewstatus,session} = req.query;
+    const res1 = await pool.query("UPDATE applicationtracking SET status = ? where application_id=?",[interviewstatus,app_id])
+    res.redirect(`/recruiter/interviewsession/${session}`)
 }
 exports.ChangeInterviewStatus = async (req,res,next)=>{
     const {app_id,interviewstatus,session} = req.query;
     const res1 = await pool.query("UPDATE applicationtracking SET status = ? where application_id=?",[interviewstatus,app_id])
     res.redirect(`/recruiter/interviewsession/${session}`)
+}
+exports.InterviewSessionDelete = async (req,res,next)=>{
+    const res1 = await pool.query("Delete from interview_session where interview_id=?",[req.query.interview_id]);
+    res.redirect(`/recruiter/interviewsession`)
+}
+
+exports.MailView = async (req,res,next) => {
+    const username = req.session.user.username;
+    const temp = await pool.query(`Select id from user where username=?`,[username]);
+    const rid = temp[0][0].id
+    const temp1 = await pool.query("Select email from recruiter where rec_uid=?",[rid])
+    const temp2 = await pool.query("Select seeker_id from applicationtracking where application_id=?",[req.query.application_id])
+    const temp3 = await pool.query("Select email from jobseeker where seeker_uid=?",[temp2[0][0].seeker_id])
+    res.render('recruiter/EmailView',{from:temp1[0][0].email,to:temp3[0][0].email,session:req.query.interview_session})
+}
+
+exports.MailPost = async (req,res,next) => {
+    const {frommail,tomail,subject,body,intsession} = req.body;
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false, // true for port 465, false for other ports
+        auth: {
+          user: process.env.USER,
+          pass: process.env.PASSWORD,
+        },
+      });
+      
+      // async..await is not allowed in global scope, must use a wrapper
+      async function main() {
+        // send mail with defined transport object
+        const info = await transporter.sendMail({
+          from: {
+            name: "QuickHire",
+            address: frommail
+          }, // sender address
+          to: tomail, // list of receivers
+          subject: subject, // Subject line
+          text: `${body}`, // plain text body
+          html: `<b>${body}</b>`, // html body
+        });
+      
+        console.log("Message sent: %s", info.messageId);
+        // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+      }
+      
+      main().catch(console.error);
+      res.redirect(`/recruiter/interviewsession/${intsession}`);
 }

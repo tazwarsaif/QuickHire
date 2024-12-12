@@ -30,7 +30,25 @@
       .newbtns {
         display: flex;
         flex-direction: row;
-        margin-left: 30%;
+        margin-left: 13%;
+      }
+      .delete {
+        transition: 0.3s background-color;
+        background-color: rgb(239, 137, 137);
+      }
+      .delete:hover {
+        background-color: rgb(196, 130, 130);
+        color: #ffffff;
+        cursor: pointer;
+      }
+      .edit {
+        transition: 0.3s background-color;
+        background-color: rgb(203, 234, 166);
+      }
+      .edit:hover {
+        background-color: rgb(130, 141, 196);
+        color: #ffffff;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -55,6 +73,24 @@
             style="width: max-content; margin-top: 20px; margin-bottom: 40px"
             >Go to Interview Sessions</a
           >
+          <a
+            href="http://localhost:5000/recruiter/interviewsession/<%= i_id %>/edit?interview_id=<%= i_id %>"
+            class="details-btn edit"
+            style="width: max-content; margin-top: 20px; margin-bottom: 40px"
+            >Edit Session</a
+          >
+          <form
+            action="/recruiter/interviewsession/delete?interview_id=<%= i_id %>"
+            method="post"
+          >
+            <button
+              type="submit"
+              class="details-btn delete"
+              style="width: max-content; margin-top: 20px; margin-bottom: 40px"
+            >
+              Delete Session
+            </button>
+          </form>
         </div>
       </div>
       <div class="table">
@@ -65,6 +101,7 @@
               <th>Status</th>
               <th>Email</th>
               <th>Resume Link</th>
+              <th>Send Email</th>
             </tr>
           </thead>
           <tbody>
@@ -123,8 +160,14 @@
                   >Link</a
                 >
               </td>
-              <% }) %>
+              <td>
+                <a
+                  href="http://localhost:5000/recruiter/mail?application_id=<%= interviewee.application_id %>&interview_session=<%= interviewee.interview_session %>"
+                  >Give email</a
+                >
+              </td>
             </tr>
+            <% }) %>
           </tbody>
         </table>
       </div>

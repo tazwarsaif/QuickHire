@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Session View</title>
+    <%- include('../partials/public') %>
+    <style>
+      table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        background: linear-gradient(to bottom, #abcadea5, #ddf5f9);
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/jobseekerHeader') %>
+    <div class="interview_container">
+      <h3 style="color: red; margin-left: 10%">
+        *You will see the upcoming interviews only*
+      </h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Job Type</th>
+            <th>Interview Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% applied.forEach((job)=>{ %>
+          <tr>
+            <td>
+              <a href="http://localhost:5000/home?job_id=<%= job.postid %>"
+                ><%= job.job_title %></a
+              >
+            </td>
+            <td><%= job.job_type %></td>
+            <% if(job.date==null){ %>
+            <td>Not Yet Given</td>
+            <% }else{ %>
+            <td>
+              <%= job.date.toLocaleDateString('en-CA') %> (<%= job.s_time %>-<%=
+              job.e_time %>)
+            </td>
+            <% } %>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

@@ -53,3 +53,11 @@ exports.seekApplied = async (req,res,next) =>{
     console.log(req.body);
     res.redirect("/home");
 }
+
+exports.appliedJobs = async (req,res,next) =>{
+    const username = req.session.user.username;
+    const temp = await pool.query(`Select id from user where username=?`,[username]);
+    const jid = temp[0][0].id
+    const temp1 = await pool.query('select at.interview_session as interview_session, jp.title as job_title, jp.pid as postid, jp.type as job_type, inter.date, inter.start_time as s_time, inter.end_time as e_time from applicationtracking at right join jobpost jp on at.job_id = jp.pid and at.seeker_id=12 left join interview_session inter on at.interview_session=inter.interview_id where jp.pid=at.job_id AND (inter.date IS NULL OR (inter.date = CURDATE() AND inter.start_time > CURTIME()) OR (inter.date > CURDATE()))',[jid]);
+    res.render("jobseeker/appliedJobs",{applied:temp1[0]})
+}

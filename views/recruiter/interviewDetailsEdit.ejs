@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Edit</title>
+    <style>
+      .heading {
+        margin-bottom: -50px;
+      }
+      .smallcontainer input {
+        width: 95%;
+      }
+      .smallcontainer textarea {
+        width: 100%;
+        height: 150px;
+        font-size: 25px;
+        font-family: sans-serif;
+        padding: 5px;
+      }
+    </style>
+    <%- include('../partials/public') %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+    <main>
+      <div class="heading">
+        <h1>Edit Interview Session:</h1>
+      </div>
+
+      <div class="personedit">
+        <form
+          action="/recruiter/editinterview?interview_id=<%= details[0].interview_id %>"
+          method="POST"
+        >
+          <div class="smallcontainer">
+            <label for="title"><b>Title: </b></label>
+            <input
+              required
+              type="text"
+              name="title"
+              value="<%= details[0].title %>"
+            />
+          </div>
+          <div class="smallcontainer">
+            <label for="date"><b>Date: </b></label>
+            <input
+              required
+              type="date"
+              name="date"
+              value="<%= details[0].date.toLocaleDateString('en-CA') %>"
+            />
+          </div>
+          <div class="smallcontainer">
+            <label for="start_time"><b>Start Time: </b></label>
+            <input
+              required
+              type="time"
+              name="s_time"
+              value="<%= details[0].start_time %>"
+            />
+          </div>
+          <div class="smallcontainer">
+            <label for="end_time"><b>End Time: </b></label>
+            <input
+              required
+              type="time"
+              name="e_time"
+              value="<%= details[0].end_time %>"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="details-btn apply"
+            style="margin-top: 10px; margin-bottom: -10px; cursor: pointer"
+          >
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

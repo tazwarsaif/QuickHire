@@ -64,9 +64,14 @@ router.get('/recruiter/changeinterviewsession',recruiterController.selectintervi
 router.get('/recruiter/interviewsession',recruiterController.InterviewSessionView)
 router.post('/recruiter/interviewsession',recruiterController.InterviewSessionViewPost)
 router.get('/recruiter/interviewsession/:id',recruiterController.InterviewDetailedView)
+router.get('/recruiter/interviewsession/:id/edit',recruiterController.InterviewDetailsEdit)
+router.post('/recruiter/editinterview',recruiterController.InterviewDetailsEditPost)
+router.post('/recruiter/interviewsession/delete',recruiterController.InterviewSessionDelete)
 router.get('/recruiter/changestatus',recruiterController.ChangeInterviewStatus)
 router.post('/recruiter/deletejob',recruiterController.DeletePostedJobs)
 router.get('/recruiter/detailedjobview',recruiterController.DetailedJobView)
+router.get('/recruiter/mail',recruiterController.MailView)
+router.post('/recruiter/mailpost',recruiterController.MailPost)
 
 //For Job Seeker
 
@@ -75,6 +80,7 @@ router.get('/dashboard/jobseeker',authMiddleware,jobseekerController.seekView)
 router.get('/dashboard/jobseeker/edit',authMiddleware,jobseekerController.seekeditView)
 router.post('/dashboard/jobseeker/edit',authMiddleware,jobseekerController.seekeditPost)
 router.get('/home/apply',authMiddleware,jobseekerController.seekApply)
+router.get('/jobseeker/appliedjobs',authMiddleware,jobseekerController.appliedJobs)
 router.post('/apply',authMiddleware,upload.single("uploadresume"),applyStore,jobseekerController.seekApplied)
 
 module.exports = router;

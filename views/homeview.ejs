@@ -26,6 +26,13 @@
       .homedash a:hover {
         background-color: rgb(90, 139, 189);
       }
+      #myjobs {
+        background-color: rgb(109, 130, 201);
+        transition: 0.3s background-color;
+      }
+      #myjobs:hover {
+        background-color: rgb(91, 93, 162);
+      }
     </style>
   </head>
   <body>
@@ -51,15 +58,15 @@
           <% user.forEach((element)=>{ %>
           <p>
             <%= element.name.split(" ")[0] %> you have applied for <%= applied
-            %> jobs.
+            %> job(s).
           </p>
           <% }) %>
         </h1>
-        <div class="homedash">
+        <div class="homedash btns">
           <a href="http://localhost:5000/dashboard/jobseeker">My Dashboard</a>
-          <form action="/logout" method="post">
-            <button class="logout-button" id="logoutButton">Logout</button>
-          </form>
+          <a href="http://localhost:5000/jobseeker/appliedjobs" id="myjobs"
+            >Jobs Applied</a
+          >
         </div>
         <hr />
       </div>

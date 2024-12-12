@@ -24,10 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Logout functionality
     logoutButton.addEventListener('click', () => {
       const confirmation = confirm('Are you sure you want to log out?');
-      if (confirmation) {
-        alert('Logging out...');
-        // Add logout functionality logic here (e.g., redirect to login page, clear session, etc.)
-      }
+      
     });
   });
   

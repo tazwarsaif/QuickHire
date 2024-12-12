@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Jobs</title>
+    <style>
+      .heading {
+        margin-bottom: -50px;
+      }
+      .smallcontainer input {
+        width: 95%;
+      }
+      .smallcontainer textarea {
+        width: 100%;
+        height: 150px;
+        font-size: 25px;
+        font-family: sans-serif;
+        padding: 5px;
+      }
+    </style>
+    <%- include('../partials/public') %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+    <main>
+      <div class="heading">
+        <h1>Send Email:</h1>
+      </div>
+
+      <div class="personedit">
+        <form action="/recruiter/mailpost" method="POST">
+          <input type="hidden" value="<%= session %>" name="intsession" />
+          <div class="smallcontainer">
+            <label for="from"><b>From: </b></label>
+            <input type="text" name="frommail" value="<%= from %>" />
+          </div>
+          <div class="smallcontainer">
+            <label for="tomail"><b>Mail to: </b></label>
+            <input type="text" required name="tomail" value="<%= to %>" />
+          </div>
+          <div class="smallcontainer">
+            <label for="subject"><b>Subject: </b></label>
+            <input type="text" required name="subject" />
+          </div>
+          <div class="smallcontainer">
+            <label for="body"><b>Body: </b></label>
+            <textarea name="body"></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="details-btn apply"
+            style="margin-top: 10px; margin-bottom: -10px; cursor: pointer"
+          >
+            Send Message
+          </button>
+        </form>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>
