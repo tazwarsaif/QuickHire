@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Detailed View</title>
+    <%- include('../partials/public') %>
+    <style>
+      table {
+        width: 70%;
+        border-collapse: collapse;
+        margin: 20px auto;
+        background: linear-gradient(to bottom, #abcadea5, #ddf5f9);
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+      }
+      select {
+        font-size: 17px;
+        width: 80%;
+        text-align: center;
+      }
+      .newbtns {
+        display: flex;
+        flex-direction: row;
+        margin-left: 30%;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+    <main>
+      <div class="jobs">
+        <h1>Title: <%= interview[0].title %></h1>
+        <h2>Date: <%= interview[0].date.toDateString() %></h2>
+        <p><b>Start Time: <%= interview[0].start_time %></b></p>
+        <p><b>End Time: <%= interview[0].end_time %></b></p>
+        <div class="details newbtns">
+          <a
+            href="http://localhost:5000/recruiter/postedjobs"
+            class="details-btn detailed"
+            style="width: max-content; margin-top: 20px; margin-bottom: 40px"
+            >Go Back to Jobs</a
+          >
+          <a
+            href="http://localhost:5000/recruiter/interviewsession"
+            class="details-btn apply"
+            style="width: max-content; margin-top: 20px; margin-bottom: 40px"
+            >Go to Interview Sessions</a
+          >
+        </div>
+      </div>
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Email</th>
+              <th>Resume Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <% interviewees.forEach((interviewee)=>{ %>
+              <td><%= interviewee.name %></td>
+              <td>
+                <select class="interviewdetails" name="status" id="status">
+                  <% if(interviewee.status=="pending"){ %>
+                  <option
+                    value="<%= interviewee.application_id %>_pending_<%= interviewee.interview_session %>"
+                    selected
+                  >
+                    pending
+                  </option>
+                  <% }else{ %>
+                  <option
+                    value="<%= interviewee.application_id %>_pending_<%= interviewee.interview_session %>"
+                  >
+                    pending
+                  </option>
+                  <% }if(interviewee.status=="accepted"){ %>
+                  <option
+                    value="<%= interviewee.application_id %>_accepted_<%= interviewee.interview_session %>"
+                    selected
+                  >
+                    accepted
+                  </option>
+                  <% }else{ %>
+                  <option
+                    value="<%= interviewee.application_id %>_accepted_<%= interviewee.interview_session %>"
+                  >
+                    accepted
+                  </option>
+                  <% } if(interviewee.status=="rejected"){ %>
+                  <option
+                    value="<%= interviewee.application_id %>_rejected_<%= interviewee.interview_session %>"
+                    selected
+                  >
+                    rejected
+                  </option>
+                  <% }else{ %>
+                  <option
+                    value="<%= interviewee.application_id %>_rejected_<%= interviewee.interview_session %>"
+                  >
+                    rejected
+                  </option>
+                  <% } %>
+                </select>
+              </td>
+              <td><%= interviewee.email %></td>
+              <td>
+                <a
+                  href="http://localhost:5000//<%= interviewee.path_link %>"
+                  target="_blank"
+                  >Link</a
+                >
+              </td>
+              <% }) %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <%- include('../partials/footer') %>
+    <script>
+      const interviewselect = document.querySelectorAll(".interviewdetails");
+      interviewselect.forEach((btn) => {
+        btn.addEventListener("change", () => {
+          const lis = btn.value.split("_");
+          const status = lis[1];
+          const app_id = lis[0];
+          console.log(lis);
+          fetch(
+            `http://localhost:5000/recruiter/changestatus?app_id=${app_id}&interviewstatus=${status}&session=${lis[2]}`
+          )
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        });
+      });
+    </script>
+  </body>
+</html>

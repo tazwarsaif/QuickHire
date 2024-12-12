@@ -9,15 +9,15 @@
         <li><a href="#">Services</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
-      <div class="actions">
-        <div class="search-bar">
-          <input type="text" placeholder="Search..." id="searchInput" />
-          <button class="search-button" id="searchButton">Search</button>
-        </div>
-        <form action="/logout" method="post">
-          <button class="logout-button" id="logoutButton">Logout</button>
-        </form>
-      </div>
+      <% if(type === 'login'){ %>
+      <ul>
+        <li><a href="http://localhost:5000/signup">Sign Up</a></li>
+      </ul>
+      <% }else if(type === 'signup'){ %>
+      <ul>
+        <li><a href="http://localhost:5000/login">Log in</a></li>
+      </ul>
+      <% } %>
     </div>
   </nav>
 </header>

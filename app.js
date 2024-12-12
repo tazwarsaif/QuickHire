@@ -9,7 +9,11 @@ require('dotenv').config();
 const app = express()
 
 app.set('view engine','ejs');
-app.set('views','views');
+app.set('views', [
+    path.join(__dirname, 'views'),
+    path.join(__dirname, 'views/recruiter'),
+    path.join(__dirname, 'views/jobseeker')
+  ]);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Post View</title>
-    <%- include('./partials/public') %>
+    <%- include('../partials/public') %>
     <style>
       /* Modal Styles */
       .modal {
@@ -55,7 +55,7 @@
     </style>
   </head>
   <body>
-    <%- include('./partials/header') %>
+    <%- include('../partials/header') %>
     <main>
       <% for(let i = 0; i<=jobs.length; i++){ if(i==jobs.length){break}%>
       <div class="job">
@@ -121,7 +121,7 @@
       </div>
     </div>
 
-    <%- include('partials/footer') %>
+    <%- include('../partials/footer') %>
     <script>
       function openDeleteModal(pid) {
         const modal = document.getElementById("deleteModal");

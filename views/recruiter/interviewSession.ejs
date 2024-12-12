@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interview Session View</title>
-    <%- include('partials/public') %>
+    <%- include('../partials/public') %>
     <style>
       /* Content for background */
       #mainContent {
@@ -96,7 +96,7 @@
     </style>
   </head>
   <body>
-    <%- include('partials/header') %>
+    <%- include('../partials/header') %>
     <main id="mainContent">
       <div>
         <button class="open-button" onclick="openForm()">+ Add Session</button>
@@ -142,22 +142,27 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Session ID</th>
+            <th>Session Title</th>
             <th>Number of Interviewee</th>
             <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
+            <th>Detailed View</th>
           </tr>
         </thead>
         <tbody>
           <% interviews.forEach((interview)=>{ %>
           <tr>
             <td><%= interview.title %></td>
+            <td><%= interview.number_of_applicants %></td>
             <td><%= interview.date.toDateString() %></td>
-            <td><%= interview.start_time %></td>
-            <td><%= interview.end_time %></td>
+            <td><%= interview.stime %></td>
+            <td><%= interview.etime %></td>
             <td>
-              <a href="#" target="_blank">Detailed view</a>
+              <a
+                href="http://localhost:5000/recruiter/interviewsession/<%= interview.sessionid %>"
+                >Detailed view</a
+              >
             </td>
           </tr>
           <% }) %>
@@ -165,7 +170,7 @@
       </table>
     </div>
 
-    <%- include('partials/footer') %>
+    <%- include('../partials/footer') %>
     <script>
       function openForm() {
         document.getElementById("popupForm").style.display = "block";

@@ -63,6 +63,8 @@ router.get('/recruiter/postedjobs',recruiterController.myPostedJobs)
 router.get('/recruiter/changeinterviewsession',recruiterController.selectinterview)
 router.get('/recruiter/interviewsession',recruiterController.InterviewSessionView)
 router.post('/recruiter/interviewsession',recruiterController.InterviewSessionViewPost)
+router.get('/recruiter/interviewsession/:id',recruiterController.InterviewDetailedView)
+router.get('/recruiter/changestatus',recruiterController.ChangeInterviewStatus)
 router.post('/recruiter/deletejob',recruiterController.DeletePostedJobs)
 router.get('/recruiter/detailedjobview',recruiterController.DetailedJobView)
 

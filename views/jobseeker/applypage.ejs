@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Apply Page</title>
-    <%- include('partials/public') %>
+    <%- include('../partials/public') %>
     <style>
       * {
         font-family: sans-serif;
@@ -39,7 +39,7 @@
     </style>
   </head>
   <body>
-    <%- include('partials/header') %>
+    <%- include('../partials/jobSeekerHeader') %>
     <main>
       <form
         action="/apply"
@@ -90,7 +90,7 @@
       </form>
     </main>
 
-    <%- include('partials/footer') %>
+    <%- include('../partials/footer') %>
     <script>
       const fileinput = document.getElementById("fileinput");
       const applyform = document.getElementById("applyform");
