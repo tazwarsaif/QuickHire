@@ -12,7 +12,7 @@ exports.seekDashboard = async (req,res,next)=>{
     const tempid = temp[0][0].id;
     const res2 = await pool.query(`Insert into jobseeker (seeker_uid,name,phone,email,skills) values (?,?,?,?,?)`,[tempid,name,phone,email,skillset]);
     console.log('Signup Successful')
-    res.render('/login');
+    res.render('login',{type:'login'});
 }
 
 exports.seekView = async (req,res,next) => {
@@ -58,6 +58,12 @@ exports.appliedJobs = async (req,res,next) =>{
     const username = req.session.user.username;
     const temp = await pool.query(`Select id from user where username=?`,[username]);
     const jid = temp[0][0].id
-    const temp1 = await pool.query('select at.interview_session as interview_session, jp.title as job_title, jp.pid as postid, jp.type as job_type, inter.date, inter.start_time as s_time, inter.end_time as e_time from applicationtracking at right join jobpost jp on at.job_id = jp.pid and at.seeker_id=12 left join interview_session inter on at.interview_session=inter.interview_id where jp.pid=at.job_id AND (inter.date IS NULL OR (inter.date = CURDATE() AND inter.start_time > CURTIME()) OR (inter.date > CURDATE()))',[jid]);
+    const temp1 = await pool.query('select at.interview_session as interview_session, jp.title as job_title, jp.pid as postid, jp.type as job_type, inter.date, inter.start_time as s_time, inter.end_time as e_time from applicationtracking at inner join jobpost jp on at.job_id = jp.pid and at.seeker_id=? left join interview_session inter on at.interview_session=inter.interview_id where jp.pid=at.job_id AND (inter.date IS NULL OR (inter.date = CURDATE() AND inter.start_time > CURTIME()) OR (inter.date > CURDATE()))',[jid]);
     res.render("jobseeker/appliedJobs",{applied:temp1[0]})
+}
+
+exports.searchView = async (req,res,next) => {
+    const searchNoSpecialChar = req.body.searchItem;
+    const temp1 = await pool.query("select * from jobpost where title like ? or type like ? or description like ? or skills like ?",[`%${searchNoSpecialChar}%`,`%${searchNoSpecialChar}%`,`%${searchNoSpecialChar}%`,`%${searchNoSpecialChar}%`])
+    res.render('jobseeker/searchJobPage',{jobs:temp1[0]});
 }

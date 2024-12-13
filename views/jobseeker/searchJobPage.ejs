@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <%- include('partials/public') %>
+    <style>
+      .homedash button {
+        font-size: 25px;
+        padding: 10px;
+        box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.421);
+        border-radius: 5px;
+      }
+      .homedash a {
+        font-size: 25px;
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+        border: 1px solid rgba(0, 0, 0, 0.234);
+        box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.421);
+        padding: 10px;
+        background-color: rgb(108, 173, 238);
+        transition: 0.3s background-color;
+        border-radius: 5px;
+      }
+      .homedash a:hover {
+        background-color: rgb(90, 139, 189);
+      }
+      #myjobs {
+        background-color: rgb(109, 130, 201);
+        transition: 0.3s background-color;
+      }
+      #myjobs:hover {
+        background-color: rgb(91, 93, 162);
+      }
+    </style>
+  </head>
+  <body>
+    <%-include('partials/jobSeekerHeader') %>
+    <main>
+      <div class="heading">
+        <hr />
+      </div>
+      <div class="jobs">
+        <% jobs.forEach((job)=>{ %>
+        <div class="job">
+          <div class="jobpart">
+            <div class="job-heading">
+              <h2><%= job.title %></h2>
+            </div>
+            <div class="job-type">
+              <h3 class="job-type"><%= job.type %></h3>
+            </div>
+            <div class="skills"><%= job.skills %></div>
+          </div>
+          <div class="details">
+            <a
+              href="http://localhost:5000/home?job_id=<%= job.pid %>"
+              class="details-btn detailed"
+              >Details</a
+            >
+
+            <a
+              href="http://localhost:5000/home/apply?job_id=<%= job.pid %>"
+              class="details-btn apply"
+              >Apply</a
+            >
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
+</html>

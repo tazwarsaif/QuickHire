@@ -14,8 +14,17 @@
       </ul>
       <div class="actions">
         <div class="search-bar">
-          <input type="text" placeholder="Search..." id="searchInput" />
-          <button class="search-button" id="searchButton">Search</button>
+          <form action="/search" method="post">
+            <input
+              type="text"
+              placeholder="Search..."
+              id="searchInput"
+              name="searchItem"
+            />
+            <button type="submit" class="search-button" id="searchButton">
+              Search
+            </button>
+          </form>
         </div>
         <form action="/logout" method="post">
           <button class="logout-button" id="logoutButton">Logout</button>
